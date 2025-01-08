@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,refresh-rate=adaptive">
+   <meta name="refresh-rate" content="adaptive">
+    <title>Artist Profile</title>
+
+    <style>
+body {
+  font-family: Arial, sans-serif,italic,bold;
+  background: linear-gradient(120deg,gold,blue);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh auto;
+  color: #ffffff;
+}
+html{
+     scroll-behavior:smooth;
+} 
+body.high-performance .animated {
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+    transition: all 0.3s ease-in-out;
+}
+
+body.low-performance .animated {
+    transform: none;
+    transition: none;
+}
+*{
+  animation-timing-function:linear;
+  transition-timing-function:linear;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 5px solid blue;
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 30px 30px 30px rgba(30, 30, 30, 0.1);
+  padding: 20px;
+  transform: scale(0); /* Start small */
+  animation: openPage 4s ease forwards; /* Expand smoothly */
+}
+
+/* Desktop layout */
+@media (min-width: 768px) {
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .section {
+        flex: 1;
+        margin: 10px;
+    }
+}
+
+/* Profile Section */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.profile-image {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 5px solid blue;
+  object-fit: cover;
+  margin-bottom: 15px;
+  animation: bounce 3s infinite;
+}
+
+.profile-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
+  margin-bottom: 5px;
+}
+
+.profile-details {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.profile-bio {
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: black;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.profile-actions button {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.4s;
+}
+
+.profile-actions button:hover {
+  background-color: gold;
+}
+
+/* Music and Video Sections */
+section {
+  display: none;
+}
+
+#music-section,
+#videos-section {
+  margin-top: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+ul li p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+audio,
+video {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.search-bar {
+  margin-bottom: 15px;
+  width: 95%;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: white;
+  color: black;
+  outline: none;
+}
+
+/* Albums Section */
+#albums-section {
+  margin-top: 20px;
+}
+
+.albums-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.album-link {
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid blue;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.album-link:hover {
+  transform: scale(1.05);
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+.album-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+
+}
+
+.album-details {
+  padding: 10px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.album-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px 0;
+  color: #ffffff;
+}
+
+.album-description {
+  font-size: 14px;
+  color: #cccccc;
+}
+
+/* Animations */
+@keyframes openPage {
+  0% {
+    transform: scale(0); /* Start tiny */
+    opacity: 0; /* Fade in */
+  }
+  50% {
+    transform: scale(1.1); /* Slightly larger for effect */
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1); /* Normal size */
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+      .enlarged-profile {
+            position: fixed;
+            top: 100px;
+            left: 0;
+            width: 100vw ;
+            height:100hv;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .enlarged-profile img {
+            width: 80%;
+            height:100%;
+            max-width:500px;
+            border-radius: 10px;
+            border: 5px solid gold;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            background: silver;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+/* Updates Section */
+#threads-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.thread {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.thread-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 5px;
+}
+
+.thread-header p {
+    margin: 0;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.thread-body {
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 1.5;
+}
+
+/* Timestamp style */
+.timestamp {
+    font-size: 12px;
+    font-style: italic;
+    color: #dddddd;
+}
+
+footer {
+  background-color:blue;
+  color: gold;
+  padding: 0.1em;
+  text-align: center;
+  position: relative;
+  top:95%;
+  bottom: 0;
+  width: 100%;
+}
+
+audio::-webkit-media-controls-panel {
+background-image: linear-gradient(180deg, gold,blue);
+background-size: 100% 100%;
+}
+
+audio::-webkit-media-controls-play-button {
+background-color: transparent;
+border: none;
+padding: 0;
+}
+
+audio::-webkit-media-controls-timeline {
+background-image: linear-gradient(120deg, white);
+background-size: 100% 100%;
+}
+
+audio::-webkit-media-controls-mute-button {
+background-color: transparent;
+border: none;
+padding: 0;
+}
+
+/* Enable smooth scrolling */
+body {
+  scroll-behavior: smooth;
+}
+
+/* Optional: Add scroll snap points */
+section {
+  scroll-snap-align: start;
+}
+
+/* Optional: Add smooth scroll animation */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optional: Add custom scrollbar styles */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid gold;
+  border-top-color: blue;
+  animation: spin 1s linear infinite;
+  z-index: 1000;
+}
+
+@keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.loaded {
+  display: none;
+}
+
+</style>
+</head>
+<body>
+  <div class="loader"></div>
+    <div class="container">
+
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <img src="Bleach.jpg" loading="lazy" alt="Profile Picture" class="profile-image" id="profileImage">
+            <h2 class="profile-name">Artist Name</h2>
+            <p class="profile-details"><b>Producer | Vocalist | Musician</b></p>
+            <p class="profile-bio"><b>This is a brief bio about the artist, including their background, style, and music genre.</b></p>
+
+<!-- Enlarged Profile Picture Modal -->
+    <div class="enlarged-profile" id="enlargedProfile" style="display: none;">
+        <button class="close-btn" onclick="closeEnlargedProfile()">X</button>
+        <img src="Bleach.jpg" alt="Enlarged Profile Picture">
+    </div>
+
+            <!-- Navigation Buttons -->
+            <div class="profile-actions">
+                <button onclick="showSection('updates-section')">Updates</button>
+                <button onclick="showSection('albums-section')">Albums</button>
+                <button onclick="showSection('music-section')">Music</button>
+                <button onclick="showSection('videos-section')">Videos</button>
+                <button onclick="showSection('contact-section')">Contact</button>
+            </div>
+        </div>
+        
+        <!-- Updates Section -->
+        <section id="updates-section">
+              <h3>Updates</h3>
+            <div id="threads-container">
+              <!-- Thread 1 -->
+              <div class="thread">
+            <div class="thread-header">
+                <p><strong>Artist Name</strong></p>
+                <p class="timestamp">Posted on: 2024-11-23</p>
+            </div>
+            <div class="thread-body">
+                <p>Excited to announce a new single dropping this Friday! Stay tuned for "Golden Vibes."</p>
+            </div>
+        </div>
+
+        <!-- Thread 2 -->
+        <div class="thread">
+            <div class="thread-header">
+                <p><strong>Artist Name</strong></p>
+                <p class="timestamp">Posted on: 2024-11-20</p>
+            </div>
+            <div class="thread-body">
+                <p>Just wrapped up an amazing live session—thank you to everyone who joined the stream!</p>
+            </div>
+            </div>
+
+        <!-- Add more threads manually here -->
+            </div>
+      </section>
+         
+         
+        <!-- Albums-section -->
+        <section id="albums-section">
+    <h3>Albums</h3>
+    <div class="albums-grid">
+        <!-- Album 1 -->
+        <a href="album1.html" class="album-link">
+            <img src="1.jpg" alt="Album 1 Cover" class="album-image">
+            <div class="album-details">
+                <p class="album-name">Album 1</p>
+                <p class="album-description">This is a description of Album 1.</p>
+            </div>
+        </a>
+
+        <!-- Album 2 -->
+        <a href="album2.html" class="album-link">
+            <img src="bleach.jpg" alt="Album 2 Cover" class="album-image">
+            <div class="album-details">
+                <p class="album-name">Album 2</p>
+                <p class="album-description">This is a description of Album 2.</p>
+            </div>
+        </a>
+    </div>
+</section>
+         
+        
+            
+        <!-- Music Section -->
+        <section id="music-section">
+            <h3>Music</h3>
+            <input type="text" id="music-search" class="search-bar" placeholder="Search Music..." onkeyup="searchItems('music-list', 'music-search')">
+            <ul id="music-list">
+                <li>
+                    <p><i>Song 1</i></p>
+                    <audio controls >
+                        <source src="music/Radin Solo.mp3" loading="lazy" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-info" id="info1">
+                        
+                        
+                        
+                    </div>
+                </li>
+                <li>
+                    <p><i>Song 2</i></p>
+                    <audio controls>
+                        <source src="lana.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-info" id="info2">
+                        
+                        
+                        
+                    </div>
+                </li>
+<li>
+                    <p><i>Song 3</i></p>
+                    <audio controls>
+                        <source src="song2.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-info" id="info2">
+                        
+                        
+                        
+                    </div>
+                </li>
+<li>
+                    <p><i>Song 4</i></p>
+                    <audio controls>
+                        <source src="song2.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <div class="audio-info" id="info2">
+                        
+                        
+                        
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Videos Section -->
+        <section id="videos-section">
+            <h3>Videos</h3>
+            <input type="text" id="video-search" class="search-bar" placeholder="Search Videos..." onkeyup="searchItems('video-list', 'video-search')">
+            <ul id="video-list">
+                <li>
+                    <p>Hashiras😬</p>
+                    <video controls>
+                        <source src="Hashira.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </li>
+                <li>
+                    <p>Members of the hashira who died😭</p>
+                    <video controls>
+                        <source src="Hashiradeaths.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </li>
+                <li>
+                    <p>"im not that crazy"🥶</p>
+                    <video controls>
+                        <source src="jinx.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </li>
+                 <li>
+                    <p>okarun x ayasie🥺</p>
+                    <video controls>
+                        <source src="DandaDan.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </li>
+                 <li>
+                    <p>prank</p>
+                    <video controls>
+                        <source src="Friend.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </li>
+                 <li>
+                    <p>DMS</p>
+                    <video controls>
+                        <source src="ep 14.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </li>
+
+              <li>
+                    <p>DMS</p>
+                    <video controls>
+                        <source src=".mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </li>
+
+            </ul>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact-section">
+            <h3>Contact</h3>
+            <div id="contact-info">
+                <p><strong>Email:</strong> artist@example.com</p>
+                <p><strong>WhatsApp:</strong> <a href="https://wa.me/1234567890" target="_blank">Chat on WhatsApp</a></p>
+                <p><strong>Social Media:</strong></p>
+                <a href="https://facebook.com" target="_blank">Facebook</a> |
+                <a href="https://instagram.com" target="_blank">Instagram</a> |
+                <a href="https://twitter.com" target="_blank">Twitter</a> |
+                <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+            </div>
+        </section>
+    </div>
+
+<footer>
+  <p>&copy; 2025 Upcoming profile Website. All rights reserved.</p>
+</footer>
+
+    <script>
+const profileImage = document.getElementById("profileImage");
+        const enlargedProfile = document.getElementById("enlargedProfile");
+
+        profileImage.addEventListener("click", () => {
+            enlargedProfile.style.display = "flex";
+        });
+
+        function closeEnlargedProfile() {
+            enlargedProfile.style.display = "none";
+        }
+
+// Show the selected section based on button click
+function showSection(sectionId) {
+    const sections = document.querySelectorAll("section");
+    sections.forEach(section => section.style.display = "none");
+    document.getElementById(sectionId).style.display = "block";
+}
+
+// Search function for album,music and video sections
+function searchItems(listId, searchId) {
+    const filter = document.getElementById(searchId).value.toUpperCase();
+    const list = document.getElementById(listId);
+    const items = list.getElementsByTagName("li");
+
+    for (let i = 0; i < items.length; i++) {
+        const itemText = items[i].innerText || items[i].textContent;
+        items[i].style.display = itemText.toUpperCase().includes(filter) ? "" : "none";
+    }
+}
+
+// Set default section (Updates) to be visible on page load
+document.addEventListener("DOMContentLoaded", () => showSection("updates-section"));
+
+// Get all audio and video elements
+const mediaElements = document.querySelectorAll('audio, video');
+
+// Add an event listener to each media element
+mediaElements.forEach((element) => {
+  element.addEventListener('play', () => {
+    // Pause all other media elements when this one starts playing
+    mediaElements.forEach((otherElement) => {
+      if (otherElement !== element) {
+        otherElement.pause();
+      }
+    });
+  });
+});
+
+const videos = document.querySelectorAll('video');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.play();
+    } else {
+      entry.target.pause();
+    }
+  });
+}, {
+  threshold: 0.9,
+});
+
+videos.forEach((video) => {
+  observer.observe(video);
+});
+
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.keyCode === 123) { 
+    e.preventDefault();
+  }
+});
+
+const devToolsOpen = () => {
+  const widthThreshold = window.outerWidth - window.innerWidth > 160;
+  const heightThreshold = window.outerHeight - window.innerHeight > 160;
+  return widthThreshold || heightThreshold;
+};
+
+setInterval(() => {
+  if (devToolsOpen()) {
+    // Take action
+  }
+}, 1000);
+
+// Get all audio elements on the page
+const audioElements = document.querySelectorAll("audio");
+
+// Create a Web Audio API context
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+// Function to apply smooth panning to each audio element
+audioElements.forEach((audioElement) => {
+    // Create a media element source for each audio element
+    const source = audioContext.createMediaElementSource(audioElement);
+
+    // Create a stereo panner node
+    const stereoPanner = audioContext.createStereoPanner();
+
+    // Connect the source to the stereo panner, then to the destination
+    source.connect(stereoPanner);
+    stereoPanner.connect(audioContext.destination);
+
+    // Ensure the audio context starts when the user interacts with the page
+    document.addEventListener("click", () => {
+        if (audioContext.state === "suspended") {
+            audioContext.resume();
+        }
+    });
+
+    // Variables for smooth panning
+    let time = 1; // Keeps track of time
+    const speed = 0.01; // Adjust the speed of panning (smaller = slower, larger = faster)
+
+    // Function to smoothly pan using a sine wave
+    function smoothPanning() {
+        stereoPanner.pan.value = Math.cos(time); // Generate a value between -1 and 1
+        time += speed; // Increment time to keep the sine wave moving
+        requestAnimationFrame(smoothPanning); // Call the function on the next animation frame
+    }
+
+    // Start smooth panning for this audio element
+    smoothPanning();
+});
+
+// Wait for the page to finish loading
+document.addEventListener("DOMContentLoaded", () => {
+  // Get all audio and video elements on the page
+  const mediaElements = document.querySelectorAll("audio, video");
+
+  // Set the preload attribute to "auto" for each media element
+  mediaElements.forEach((element) => {
+    element.preload = "auto"; // Load media after page load
+  });
+});
+
+// Detect device refresh rate
+const refreshRate = window.screen.refreshRate;
+
+// Adjust scrolling behavior based on refresh rate
+if (refreshRate >= 120) {
+  // Enable smooth scrolling for high-refresh-rate devices
+  document.body.style.scrollBehavior = 'smooth';
+} else if (refreshRate >= 90) {
+  // Enable smooth scrolling for medium-refresh-rate devices
+  document.body.style.scrollBehavior = 'smooth';
+} else {
+  // Disable smooth scrolling for low-refresh-rate devices
+  document.body.style.scrollBehavior = 'auto';
+}
+
+// Add event listener to detect scroll events
+document.addEventListener('scroll', () => {
+  // Request animation frame to optimize scrolling performance
+  requestAnimationFrame(() => {
+    // Update scrolling behavior based on current scroll position
+  });
+});
+
+// Show loader when page is loading
+document.addEventListener('DOMContentLoaded', () => {
+  const loader = document.querySelector('.loader');
+  const mainContent = document.querySelector('.container');
+
+  // Hide loader and show main content when page has finished loading
+  loader.classList.add('loaded');
+  mainContent.style.display = 'block';
+});
+
+// Optional: Add event listener to detect when loader is fully hidden
+document.addEventListener('transitionend', (e) => {
+  if (e.target.classList.contains('loader')) {
+    // Remove loader from DOM after it's fully hidden
+    e.target.remove();
+  }
+});
+
+// Dynamically adjust structure based on screen size
+function adjustLayout() {
+    const container = document.querySelector('.container');
+    if (window.innerWidth >= 768) {
+        // Desktop layout
+        container.style.display = 'flex';
+        container.style.flexDirection = 'row';
+    } else {
+        // Mobile layout
+        container.style.display = 'block';
+    }
+}
+
+// Run on load and window resize
+window.addEventListener('load', adjustLayout);
+window.addEventListener('resize', adjustLayout);
+
+</script>
+</body>
+</html>
